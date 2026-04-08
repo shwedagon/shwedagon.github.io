@@ -1,10 +1,139 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f6f8;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .header img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            object-fit: cover;
+        }
+
+        .header h1 {
+            margin: 15px 0 5px;
+        }
+
+        .header p {
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        .content {
+            padding: 25px;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section h2 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        .skills span {
+            display: inline-block;
+            background: #3498db;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 20px;
+            margin: 5px 5px 0 0;
+            font-size: 14px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background: #f0f0f0;
+            font-size: 14px;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-  <h1>Hello Khant Chaw Maung</h1>
-  <p>This is the site to expose you-scammer..</p>
+
+<div class="container">
+    <div class="header">
+        <img src="profile.jpg" alt="Profile Photo">
+        <h1>John Doe</h1>
+        <p>Freight Forwarder | Logistics Specialist</p>
+    </div>
+
+    <div class="content">
+
+        <div class="section">
+            <h2>About Me</h2>
+            <p>
+                Experienced logistics professional specializing in international shipping,
+                containerized transport, and supply chain optimization.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>Skills</h2>
+            <div class="skills">
+                <span>Freight Forwarding</span>
+                <span>Supply Chain</span>
+                <span>Warehouse Management</span>
+                <span>Customs Clearance</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Experience</h2>
+            <p><strong>Senior Logistics Manager</strong> – ABC Logistics (2020–Present)</p>
+            <p><strong>Operations Executive</strong> – XYZ Shipping (2016–2020)</p>
+        </div>
+
+        <div class="section">
+            <h2>Contact</h2>
+            <p>Email: john@example.com</p>
+            <p>Phone: +66 123 456 789</p>
+            <p>LinkedIn: <a href="#">linkedin.com/in/johndoe</a></p>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        © 2026 John Doe
+    </div>
+</div>
+
 </body>
 </html>
