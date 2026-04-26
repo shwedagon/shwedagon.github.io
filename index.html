@@ -117,6 +117,16 @@
             font-size: 14px;
         }
 
+        .counter {
+            text-align: center;
+            margin: 15px 0;
+            padding: 10px 15px;
+            background: #ecf0f1;
+            border-radius: 10px;
+            font-size: 16px;
+            color: #2c3e50;
+        }
+
         a {
             color: #3498db;
             text-decoration: none;
@@ -136,7 +146,9 @@
             <h1>Khant Chaw Maung</h1>
             <p>Scammer </p>
         </div>
-
+        <div class="counter">
+            Visitors: <span id="visit-count">0</span>
+        </div>
         <div class="content">
 
 
@@ -232,6 +244,16 @@
             data-lang="en" crossorigin="anonymous" async>
             </script>
     </div>
+    <script>
+        const counterEl = document.getElementById('visit-count');
+        const storageKey = 'frontPageVisitCount';
+        let visitCount = Number(localStorage.getItem(storageKey) || 0);
+        visitCount += 1;
+        localStorage.setItem(storageKey, visitCount);
+        if (counterEl) {
+            counterEl.textContent = visitCount;
+        }
+    </script>
 </body>
 
 </html>
