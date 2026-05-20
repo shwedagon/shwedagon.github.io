@@ -15,33 +15,62 @@
 
         .gallery {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            /* 3 columns */
-            gap: 10px;
-            /* space between images */
+            grid-template-columns: repeat(2, 1fr);
+            /* 2 columns */
+            gap: 20px;
+            /* space between items */
         }
 
         /* Mobile responsive */
-        @media (max-width: 600px) {
-            .gallery {
-                grid-template-columns: repeat(2, 1fr);
-                /* 2 columns on mobile */
-            }
-        }
-
-        @media (max-width: 400px) {
+        @media (max-width: 768px) {
             .gallery {
                 grid-template-columns: 1fr;
-                /* 1 column on very small screens */
+                /* 1 column on tablets and mobile */
             }
         }
 
-        .gallery img {
+        .gallery-item {
+            background: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-item img {
             width: 100%;
-            height: 300px;
-            object-fit: contain;
-            /* shows full image without cropping */
+            height: 250px;
+            object-fit: cover;
+            /* covers the space */
             background: #eee;
+            display: block;
+        }
+
+        .gallery-item-description {
+            padding: 15px;
+            background: #fff;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .gallery-item-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .gallery-item-text {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.5;
         }
 
         .container {
@@ -147,7 +176,14 @@
             <p>Scammer </p>
         </div>
         <div class="counter">
-            Visitors: <span id="visit-count">0</span>
+            <div>Total Page Opens: <span id="visit-count">0</span></div>
+            <div>Last Visit: <span id="last-visit">Never</span></div>
+            <button id="view-visits-btn"
+                style="margin-top: 10px; padding: 8px 15px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">View
+                Visit History</button>
+            <div id="visit-history"
+                style="display: none; margin-top: 15px; text-align: left; max-height: 300px; overflow-y: auto; background: white; padding: 10px; border-radius: 5px; font-size: 14px;">
+            </div>
         </div>
         <div class="content">
 
@@ -155,25 +191,78 @@
             <div class="section">
                 <h2>What Does He Do?</h2>
                 <p>
-                    ကျွန်တော်သည် ရနောင်း-ကော့သောင်း-ရန်ကုန် ပို့ဆောင်ရေး လုပ်ငန်းကို အဓိကထား လုပ်ကိုင်ပါသည်။
+                    လိမ်လည်မှုအမှု ၁: ၂၀၂၅ ခုနှစ် ဒီဇင်ဘာလတွင် သူသည် သွင်းကုန်လိုင်စင်ရရှိရန် ကူညီပေးရန်ဟန်ဆောင်၍
+                    တစ်စုံတစ်ဦးထံမှ ကျပ်သန်း ၆၀ ကို အပ်ငွေအဖြစ် လိမ်လည်ခဲ့သည်။ ၂၀၂၆ ခုနှစ် ဖေဖော်ဝါရီလတွင် ကတိပေးထားသည့်
+                    ပို့ဆောင်မည့်ရက် ရောက်ရှိလာပြီးနောက်၊ အကြိမ်ကြိမ် လိမ်လည်ပြီး ငွေပေးချေမှုကို နှောင့်နှေးရန်
+                    အကြောင်းပြချက်အမျိုးမျိုးဖြင့် အကြိမ်ကြိမ် တောင်းဆိုခဲ့သည်။ သားကောင်သည် ၎င်း၏
+                    သွင်းကုန်လိုင်စင်လျှောက်လွှာ၏ အထောက်အထားကို တောင်းဆိုခဲ့သည် (Viber စကားပြောဆိုမှုများ၏
+                    ဖန်သားပြင်ဓာတ်ပုံများပင် လုံလောက်ပါသည်)၊ သို့သော် သူသည် မည်သည့်အထောက်အထားမျှ မပေးခဲ့ပေ။ မေလ ၂၀
+                    ရက်နေ့တွင် ကျန်ရှိနေသော အပ်ငွေကို အပြည့်အဝ ပြန်အမ်းပေးမည်ဟု ကတိပေးခဲ့သော်လည်း အချိန်ဆွဲရန်အတွက်
+                    ကျပ်သန်း ၂ သန်းသာ ပြန်အမ်းခဲ့သည်။
+
+                    လိမ်လည်မှုအမှု ၂: ၂၀၂၆ ခုနှစ် မတ်လတွင် လိမ်လည်သူသည် သားကောင်၏ ရနောင်းဂိုဒေါင်ရှိ
+                    ကုန်ပစ္စည်းကွန်တိန်နာခြောက်လုံးကို ထိုင်းအကောက်ခွန်မှ သိမ်းဆည်းထားပြီး သိမ်းဆည်းခံရခြင်းမှ ကာကွယ်ရန်
+                    ကွန်တိန်နာတစ်ခုလျှင် ဒေါ်လာ ၃၀၀၀ လာဘ်ငွေ အများအပြား လိုအပ်ကြောင်း မဟုတ်မမှန် ပြောဆိုခဲ့သည်။ သူသည်
+                    ကုန်ပစ္စည်းများကို သိမ်းဆည်းနေသော အကောက်ခွန်အရာရှိများ၏ ဓာတ်ပုံများကိုပင် အတုလုပ်ခဲ့သည်။
+                    နောက်ပိုင်းတွင် သားကောင်သည် လာဘ်ငွေမပေးမီ ရနောင်းတွင် ကုန်ပစ္စည်းများကို ကြည့်ရှုရန် အကြိမ်ကြိမ်
+                    တောင်းဆိုခဲ့သော်လည်း လိမ်လည်သူသည် သားကောင်အား ဂိုဒေါင်တွင် ကုန်ပစ္စည်းများကို ကိုယ်တိုင်စစ်ဆေးခွင့်
+                    မပေးခဲ့ပေ။ ထို့နောက် သားကောင်သည် ရနောင်းသို့ သွားရောက်ခဲ့ပြီး ဒေသဆိုင်ရာ အာဏာပိုင်များ၏ အကူအညီဖြင့်
+                    လိမ်လည်သူ ဝှက်ထားသော ပစ္စည်းများကို ရှာဖွေတွေ့ရှိပြီး ၎င်းတို့အားလုံးကို လွှဲပြောင်းပေးခြင်းဖြင့်
+                    လိမ်လည်မှုကို တားဆီးနိုင်ခဲ့သည်။
+
+                    အထက်ဖော်ပြပါ လိမ်လည်မှုအမှုကို လိမ်လည်သူ၏ စာရွက်စာတမ်းများ၊ ဖန်သားပြင်ဓာတ်ပုံများနှင့်
+                    အသံမှတ်တမ်းများဖြင့် ထောက်ခံထားပြီး အောက်တွင် အကျဉ်းချုပ်ဖော်ပြထားပါသည်။
+
+                    လိမ်လည်သူ၏ လိပ်စာနှင့် ၎င်းတို့၏ လုပ်ဆောင်ချက်များအကြောင်း အချက်အလက်များကို ပေးပါ။ တိကျသော
+                    လိပ်စာပေးသည့်အတွက် မြန်မာကျပ်ငွေ ၁ သန်း ဆုချီးမြှင့်မည်ဖြစ်သည်။ ဤလိမ်လည်သူ၏
+                    အခြားလိမ်လည်မှုများအကြောင်း အချက်အလက်များကို ဤနေရာတွင် ထုတ်ပြန်ပါမည်။ သားကောင်အားလုံးသည်
+                    စည်းလုံးညီညွတ်စွာ သတင်းအချက်အလက်များ မျှဝေပြီး ဤလိမ်လည်သူကို တရားဥပဒေအရ အရေးယူရန်
+                    လုပ်ဆောင်ချက်များကို စီစဉ်ကြမည်ဖြစ်သည်။
                 </p>
+
                 <p>
-                    He works in the logistic industry, focusing, mainly specializing in Ranong-Khawthaung-Yangon
-                    transhportation and warehouse.
+
                 </p>
 
             </div>
             <h2>Some of his Photos</h2>
             <div>
-                <img src="Kcmanduncle.jpg" class="main-photo">
+                <img src="Kcmanduncle.jpg" class="main-photo" alt="Profile with Uncle">
             </div>
 
+            <h2>Photo Gallery with Descriptions</h2>
             <div class="gallery">
+                <div class="gallery-item">
+                    <img src="head2-modified 1.jpg" alt="Portrait">
+                    <div class="gallery-item-description">
+                        <div class="gallery-item-title">Portrait</div>
+                        <div class="gallery-item-text">Professional headshot photograph</div>
+                    </div>
+                </div>
 
-                <img src="head2-modified 1.jpg" class="main-photo">
-                <img src="meeting-with-MHL.jpg" class="main-photo">
-                <img src="meeting in the hall.jpg" class="main-photo">
-                <img src="general.jpg" class="main-photo">
+                <div class="gallery-item">
+                    <img src="meeting-with-MHL.jpg" alt="Meeting with MHL">
+                    <div class="gallery-item-description">
+                        <div class="gallery-item-title">Business Meeting</div>
+                        <div class="gallery-item-text">Meeting with business partners in the logistics industry</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="meeting in the hall.jpg" alt="Hall Meeting">
+                    <div class="gallery-item-description">
+                        <div class="gallery-item-title">Conference Event</div>
+                        <div class="gallery-item-text">Attending a business conference or formal gathering</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="general.jpg" alt="General Photo">
+                    <div class="gallery-item-description">
+                        <div class="gallery-item-title">General Photo</div>
+                        <div class="gallery-item-text">Personal photograph at various occasions</div>
+                    </div>
+                </div>
             </div>
 
 
@@ -238,14 +327,57 @@
             </script>
     </div>
     <script>
+        const STORAGE_KEY = 'pageVisitHistory';
         const counterEl = document.getElementById('visit-count');
-        const storageKey = 'frontPageVisitCount';
-        let visitCount = Number(localStorage.getItem(storageKey) || 0);
-        visitCount += 1;
-        localStorage.setItem(storageKey, visitCount);
-        if (counterEl) {
-            counterEl.textContent = visitCount;
+        const lastVisitEl = document.getElementById('last-visit');
+        const historyEl = document.getElementById('visit-history');
+        const viewHistoryBtn = document.getElementById('view-visits-btn');
+
+        // Get or initialize visit history
+        let visitHistory = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+
+        // Add current visit with timestamp
+        const now = new Date();
+        visitHistory.push(now.toISOString());
+
+        // Keep only last 100 visits to avoid storage bloat
+        if (visitHistory.length > 100) {
+            visitHistory = visitHistory.slice(-100);
         }
+
+        // Save to localStorage
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(visitHistory));
+
+        // Update display
+        if (counterEl) {
+            counterEl.textContent = visitHistory.length;
+        }
+
+        if (lastVisitEl && visitHistory.length > 0) {
+            const lastVisit = new Date(visitHistory[visitHistory.length - 1]);
+            lastVisitEl.textContent = lastVisit.toLocaleString();
+        }
+
+        // Toggle visit history display
+        viewHistoryBtn.addEventListener('click', function () {
+            if (historyEl.style.display === 'none') {
+                // Show history
+                historyEl.style.display = 'block';
+                historyEl.innerHTML = '<strong>Visit History (Last ' + visitHistory.length + ' visits):</strong><hr style="margin: 5px 0;">';
+
+                visitHistory.slice().reverse().forEach((timestamp, index) => {
+                    const date = new Date(timestamp);
+                    const dateStr = date.toLocaleString();
+                    historyEl.innerHTML += (index + 1) + '. ' + dateStr + '<br>';
+                });
+
+                viewHistoryBtn.textContent = 'Hide Visit History';
+            } else {
+                // Hide history
+                historyEl.style.display = 'none';
+                viewHistoryBtn.textContent = 'View Visit History';
+            }
+        });
     </script>
 </body>
 
